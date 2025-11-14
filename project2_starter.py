@@ -107,9 +107,9 @@ class Player(Character):
         Initialize a player character.
         Should call the parent constructor and add player-specific attributes.
         """
-        # TODO: Call super().__init__() with the basic character info
-        # TODO: Store the character_class (like "Warrior", "Mage", etc.)
-        # TODO: Add any other player-specific attributes (level, experience, etc.)
+        self.character_class = character_class
+        self.level = 1
+        self.experience = 0
         pass
         
     def display_stats(self):
@@ -117,8 +117,10 @@ class Player(Character):
         Override the parent's display_stats to show additional player info.
         Should show everything the parent shows PLUS player-specific info.
         """
-        # TODO: Call the parent's display_stats method using super()
-        # TODO: Then print additional player info like class and level
+       print(f"=== {self.name} the {self.character_class} ===")
+        print(f"Level: {self.level} | EXP: {self.experience}")
+        super().display_stats()
+        print("----------------------------")
         pass
 
 class Warrior(Player):
@@ -132,8 +134,7 @@ class Warrior(Player):
         Create a warrior with appropriate stats.
         Warriors should have: high health, high strength, low magic
         """
-        # TODO: Call super().__init__() with warrior-appropriate stats
-        # Suggested stats: health=120, strength=15, magic=5
+        super().__init__(name, "Warrior", 120, 15, 5)
         pass
         
     def attack(self, target):
@@ -141,17 +142,18 @@ class Warrior(Player):
         Override the basic attack to make it warrior-specific.
         Warriors should do extra physical damage.
         """
-        # TODO: Implement warrior attack
-        # Should do more damage than basic attack
-        # Maybe strength + 5 bonus damage?
+        damage = self.strength + 5
+        print(f"{self.name} charges forward and strikes {target.name} for {damage} damage!")
+        target.take_damage(damage)
         pass
         
     def power_strike(self, target):
         """
         Special warrior ability - a powerful attack that does extra damage.
         """
-        # TODO: Implement power strike
-        # Should do significantly more damage than regular attack
+        damage = self.strength * 2
+        print(f"{self.name} performs Power Strike on {target.name} for {damage} damage!")
+        target.take_damage(damage)
         pass
 
 class Mage(Player):
