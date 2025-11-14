@@ -103,10 +103,7 @@ class Player(Character):
     """
     
     def __init__(self, name, character_class, health, strength, magic):
-        # Call Character constructor
         super().__init__(name, health, strength, magic)
-
-        # Add player-specific attributes
         self.character_class = character_class
         self.level = 1
         self.experience = 0
@@ -222,6 +219,39 @@ class Rogue(Player):
         target.take_damage(damage)
         pass
 
+class Cleric(Player):  
+    """
+    Cleric class - an adiitonal class, one used in Project 1.
+    
+    """
+
+    def __init__(self, name):
+        """
+        Create a cleric with balanced support stats.
+        Clerics have: high magic, good health, low strength.
+        """
+        super().__init__(name, "Cleric", 110, 8, 15)
+
+    def attack(self, target):
+        """
+        Override the basic attack.
+        Clerics do magic-infused strikes (uses magic + a little strength).
+        """
+        damage = self.magic + 2
+        print(f"{self.name} channels holy energy and strikes {target.name} for {damage} damage!")
+        target.take_damage(damage)
+
+    def heal(self, target):
+        """
+        Special cleric ability.
+        Heals an ally instead of dealing damage.
+        """
+        heal_amount = self.magic * 2
+        target.health += heal_amount
+        print(f"{self.name} casts a Healing Prayer! {target.name} restores {heal_amount} HP.")
+
+
+
 class Weapon:
     """
     Weapon class to demonstrate composition.
@@ -256,17 +286,20 @@ if __name__ == "__main__":
     warrior = Warrior("Ariah")
     mage = Mage("Memphis")
     rogue = Rogue("Lyra")
+    cleric = Cleric("Elara")
+
     #
     # TODO: Display their stats
     print("\n📊 Character Stats:")
     warrior.display_stats()
     mage.display_stats()
     rogue.display_stats()
+    cleric.display_stats()
 
     # TODO: Test polymorphism - same method call, different behavior
     print("\n⚔️ Testing Polymorphism:")
     dummy = Character("Training Dummy", 100, 0, 0)
-    for char in [warrior, mage, rogue]:
+    for char in [warrior, mage, rogue, cleric]:
         print(f"\n{char.name} attacks:")
         char.attack(dummy)
         dummy.health = 100
@@ -276,6 +309,8 @@ if __name__ == "__main__":
     warrior.power_strike(dummy)
     mage.fireball(dummy)
     rogue.sneak_attack(dummy)
+    cleric.heal(dummy)
+
     
     # TODO: Test composition with weapons
     print("\n🗡️ Testing Weapon Composition:")
