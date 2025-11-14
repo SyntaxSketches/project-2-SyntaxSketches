@@ -1,7 +1,7 @@
 """ 
 COMP 163 - Project 2: Character Abilities Showcase
-Name: [Your Name Here]
-Date: [Date]
+Name: Kabijah Hill
+Date: 11/13
 
 AI Usage: [Document any AI assistance used]
 Example: AI helped with inheritance structure and method overriding concepts
@@ -167,8 +167,7 @@ class Mage(Player):
         Create a mage with appropriate stats.
         Mages should have: low health, low strength, high magic
         """
-        # TODO: Call super().__init__() with mage-appropriate stats
-        # Suggested stats: health=80, strength=8, magic=20
+        super().__init__(name, "Mage", 80, 8, 20)
         pass
         
     def attack(self, target):
@@ -176,16 +175,18 @@ class Mage(Player):
         Override the basic attack to make it magic-based.
         Mages should use magic for damage instead of strength.
         """
-        # TODO: Implement mage attack
-        # Should use self.magic for damage calculation instead of strength
+        damage = self.magic
+        print(f"{self.name} casts a Magic Bolt at {target.name} for {damage} damage!")
+        target.take_damage(damage)
         pass
         
     def fireball(self, target):
         """
         Special mage ability - a powerful magical attack.
         """
-        # TODO: Implement fireball spell
-        # Should do magic-based damage with bonus
+        damage = self.magic * 2
+        print(f"{self.name} launches a blazing Fireball for {damage} damage!")
+        target.take_damage(damage)
         pass
 
 class Rogue(Player):
@@ -199,8 +200,7 @@ class Rogue(Player):
         Create a rogue with appropriate stats.
         Rogues should have: medium health, medium strength, medium magic
         """
-        # TODO: Call super().__init__() with rogue-appropriate stats
-        # Suggested stats: health=90, strength=12, magic=10
+        super().__init__(name, "Rogue", 90, 12, 10)
         pass
         
     def attack(self, target):
@@ -208,17 +208,18 @@ class Rogue(Player):
         Override the basic attack to make it rogue-specific.
         Rogues should have a chance for extra damage (critical hits).
         """
-        # TODO: Implement rogue attack
-        # Could add a chance for critical hit (double damage)
-        # Hint: use random.randint(1, 10) and if result <= 3, it's a crit
+        damage = self.strength + 3
+        print(f"{self.name} swiftly strikes {target.name} for {damage} damage!")
+        target.take_damage(damage)
         pass
         
     def sneak_attack(self, target):
         """
         Special rogue ability - guaranteed critical hit.
         """
-        # TODO: Implement sneak attack
-        # Should always do critical damage
+        damage = self.strength * 3
+        print(f"{self.name} performs a Sneak Attack! {target.name} takes {damage} damage!")
+        target.take_damage(damage)
         pass
 
 class Weapon:
@@ -231,14 +232,15 @@ class Weapon:
         """
         Create a weapon with a name and damage bonus.
         """
-        # TODO: Store weapon name and damage bonus
+        self.name = name
+        self.damage_bonus = damage_bonus
         pass
         
     def display_info(self):
         """
         Display information about this weapon.
         """
-        # TODO: Print weapon name and damage bonus
+        print(f"Weapon: {self.name} (+{self.damage_bonus} Damage)")
         pass
 
 # ============================================================================
@@ -251,48 +253,42 @@ if __name__ == "__main__":
     print("=" * 50)
     
     # TODO: Create one of each character type
-    # warrior = Warrior("Sir Galahad")
-    # mage = Mage("Merlin")
-    # rogue = Rogue("Robin Hood")
-    
+    warrior = Warrior("Ariah")
+    mage = Mage("Memphis")
+    rogue = Rogue("Lyra")
+    #
     # TODO: Display their stats
-    # print("\n📊 Character Stats:")
-    # warrior.display_stats()
-    # mage.display_stats()
-    # rogue.display_stats()
-    
+     print("\n📊 Character Stats:")
+    warrior.display_stats()
+    mage.display_stats()
+    rogue.display_stats()
+
     # TODO: Test polymorphism - same method call, different behavior
-    # print("\n⚔️ Testing Polymorphism (same attack method, different behavior):")
-    # dummy_target = Character("Target Dummy", 100, 0, 0)
-    # 
-    # for character in [warrior, mage, rogue]:
-    #     print(f"\n{character.name} attacks the dummy:")
-    #     character.attack(dummy_target)
-    #     dummy_target.health = 100  # Reset dummy health
+    print("\n⚔️ Testing Polymorphism:")
+    dummy = Character("Training Dummy", 100, 0, 0)
+    for char in [warrior, mage, rogue]:
+        print(f"\n{char.name} attacks:")
+        char.attack(dummy)
+        dummy.health = 100
     
     # TODO: Test special abilities
-    # print("\n✨ Testing Special Abilities:")
-    # target1 = Character("Enemy1", 50, 0, 0)
-    # target2 = Character("Enemy2", 50, 0, 0)
-    # target3 = Character("Enemy3", 50, 0, 0)
-    # 
-    # warrior.power_strike(target1)
-    # mage.fireball(target2)
-    # rogue.sneak_attack(target3)
+    print("\n✨ Testing Special Abilities:")
+    warrior.power_strike(dummy)
+    mage.fireball(dummy)
+    rogue.sneak_attack(dummy)
     
     # TODO: Test composition with weapons
-    # print("\n🗡️ Testing Weapon Composition:")
-    # sword = Weapon("Iron Sword", 10)
-    # staff = Weapon("Magic Staff", 15)
-    # dagger = Weapon("Steel Dagger", 8)
-    # 
-    # sword.display_info()
-    # staff.display_info()
-    # dagger.display_info()
+    print("\n🗡️ Testing Weapon Composition:")
+    sword = Weapon("Aetherium Greatsword", 10)
+    staff = Weapon("Prism Staff of Mana", 8)
+    daggers = Weapon("Twin Shadow Blades", 7)
+    for w in [sword, staff, daggers]:
+        w.display_info()
+    
     
     # TODO: Test the battle system
-    # print("\n⚔️ Testing Battle System:")
-    # battle = SimpleBattle(warrior, mage)
-    # battle.fight()
+    print("\n⚔️ Testing Battle System:")
+    battle = SimpleBattle(warrior, mage)
+    battle.fight()
     
     print("\n✅ Testing complete!")
