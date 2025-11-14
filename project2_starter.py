@@ -3,7 +3,7 @@ COMP 163 - Project 2: Character Abilities Showcase
 Name: Kabijah Hill
 Date: 11/13
 
-AI Usage: just for "actions" to work
+AI Usage: For debugging issues, such as Indention issues
 Example: AI helped with inheritance structure and method overriding concepts
 """
 
