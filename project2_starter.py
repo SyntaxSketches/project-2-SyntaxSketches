@@ -117,7 +117,7 @@ class Player(Character):
         Override the parent's display_stats to show additional player info.
         Should show everything the parent shows PLUS player-specific info.
         """
-       print(f"=== {self.name} the {self.character_class} ===")
+        print(f"=== {self.name} the {self.character_class} ===")
         print(f"Level: {self.level} | EXP: {self.experience}")
         super().display_stats()
         print("----------------------------")
