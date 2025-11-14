@@ -1,143 +1,110 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mMxhKicI)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=21518167&assignment_repo_type=AssignmentRepo)
-# COMP 163 - Project 2: Character Abilities Showcase
+Game Concept: The Character Abilities Showcase
 
-## 🎯 Project Overview
+This project brings to life a small combat system where classic RPG archetypes fight, cast spells, heal allies, and show off their strengths through clean inheritance and polymorphism.
+You get to choose from four unique heroes: the powerful Warrior (Ariah), the mystical Mage (Memphis), the swift Rogue (Lyra), and the holy Cleric (Elara).
+Each class has its own fighting style, special abilities, and magic aptitude, and the system reliably demonstrates their differences using object-oriented programming principles.
 
-Build a simple character system that demonstrates mastery of object-oriented programming fundamentals: inheritance, method overriding, polymorphism, and composition. This project focuses on core OOP concepts without the complexity of a full game system.
+Design Choices: Class Structure & Abilities
 
-## 📋 Getting Started
+The goal was to make each class feel distinct while still sharing a common foundation.
+To achieve this, I used a clean inheritance hierarchy:
 
-1. **Complete your implementation** in `project2_starter.py`
-2. **Test your code** by running: `python project2_starter.py`
-3. **Run automated tests** with: `python -m pytest tests/ -v`
-4. **Commit and push** to see GitHub test results
+Character  →  Player  →  (Warrior, Mage, Rogue, Cleric)
 
-## 🏗️ What You're Building
 
-### **Class Structure (6 Classes Total)**
+The base Character class handles universal stats and behaviors like HP, strength, magic, basic attacking, and damage calculation.
+The Player class builds on this by adding RPG-specific features such as level, experience, and class titles.
 
-```
-Character (base class)
-    ↓
-Player (inherits from Character)  
-    ↓
-Warrior, Mage, Rogue (inherit from Player)
+Each subclass then overrides the attack() method and adds its own signature move:
 
-Weapon (composition - separate class)
-```
+Warrior (Ariah)
 
-### **Required Stats for Each Class:**
+A powerhouse with high HP (120) and massive Strength (15).
+Their attack() adds bonus physical damage, and their Power Strike deals double Strength damage for heavy hits.
 
-| Class   | Health | Strength | Magic | Special Ability |
-|---------|--------|----------|-------|-----------------|
-| Warrior | 120    | 15       | 5     | Power Strike    |
-| Mage    | 80     | 8        | 20    | Fireball        |
-| Rogue   | 90     | 12       | 10    | Sneak Attack    |
+Mage (Memphis)
 
-## 🎮 Core Functionality
+High Magic (20), low Strength — the definition of a glass cannon.
+Their attack() uses magic instead of strength, and Fireball unleashes destructive magical damage equal to double their Magic stat.
 
-### **All Characters Must Have:**
-- `attack(target)` - Basic attack method
-- `take_damage(damage)` - Reduce health
-- `display_stats()` - Print character information
+Rogue (Lyra)
 
-### **Players Additionally Have:**
-- `character_class` attribute (like "Warrior", "Mage")
-- `level` and `experience` attributes
-- Enhanced `display_stats()` that shows player info
+Agile and clever with balanced stats.
+Their quick-strike attack() does extra light damage, and Sneak Attack guarantees a critical hit worth triple their Strength.
 
-### **Special Abilities (Each Class):**
-- **Warrior**: `power_strike(target)` - High damage attack
-- **Mage**: `fireball(target)` - Magic damage attack
-- **Rogue**: `sneak_attack(target)` - Critical hit attack
+Cleric (Elara)
 
-### **Weapons (Composition):**
-- `Weapon(name, damage_bonus)` - Characters can HAVE weapons
-- `display_info()` - Show weapon information
+A supportive spellcaster with strong Magic (15) and good Health (110).
+Their attack() fuses magic into melee, and they can cast Heal, restoring huge amounts of HP to allies.
 
-## ✅ Testing Your Code
+This entire system cleanly demonstrates polymorphism:
+all characters use the method attack(), yet they all behave differently!
 
-### **Local Testing**
-```bash
-# Run all tests
-python -m pytest tests/ -v
+BONUS Creative Feature: Weapon Composition
 
-# Run specific test categories
-python -m pytest tests/test_inheritance.py -v
-python -m pytest tests/test_method_overriding.py -v
-python -m pytest tests/test_special_abilities.py -v
+I added a Weapon class to demonstrate composition (a HAS-A relationship).
+Characters don’t inherit from weapons — they carry them.
 
-# Test your main program
-python project2_starter.py
-```
+Each weapon has:
 
-### **GitHub Testing**
+a name
 
-After pushing your code, check the **Actions** tab to see automated test results:
+a damage bonus
 
-- ✅ **Inheritance Tests** (20 points) - Class structure and inheritance chain
-- ✅ **Method Overriding Tests** (20 points) - Polymorphism and customized methods
-- ✅ **Special Abilities Tests** (15 points) - Character abilities and composition
+Weapons are displayed through a simple display_info() method, and the main program shows how characters can equip different gear like:
 
-## 🎮 Example Usage
+Aetherium Greatsword
 
-Your program should work like this:
+Prism Staff of Mana
 
-```python
-# Create characters (inheritance)
-warrior = Warrior("Marcus")
-mage = Mage("Aria")  
-rogue = Rogue("Shadow")
+Twin Shadow Blades
 
-# Polymorphism - same method, different behavior
-for character in [warrior, mage, rogue]:
-    character.attack(target)  # Each attacks differently
+This adds personality to each class’s fighting style and shows how composition works in object-oriented design.
 
-# Special abilities
-warrior.power_strike(enemy)
-mage.fireball(enemy)
-rogue.sneak_attack(enemy)
+AI Code Stuff
 
-# Composition
-sword = Weapon("Iron Sword", 15)
-sword.display_info()
+I used AI mainly for debugging issues, such as:
 
-# Test battle system (provided for you)
-battle = SimpleBattle(warrior, mage)
-battle.fight()
-```
+fixing inheritance mistakes
 
-## 🎲 SimpleBattle System (Provided)
+repairing attack logic
 
-You have a **SimpleBattle** class already written that you can use to test your characters:
+catching typos in overridden methods
 
-```python
-battle = SimpleBattle(character1, character2)
-battle.fight()  # Simulates a simple battle
-```
+ensuring the battle loop ran cleanly
 
-**⚠️ DO NOT MODIFY the SimpleBattle class** - it's provided for testing your implementations.
+validating polymorphism behavior
 
-## ⚠️ Important Notes
+AI helped me with debugging issues, such as calling out indention problems
 
-### **Protected Files**
-- **DO NOT MODIFY** files in the `tests/` directory
-- **DO NOT MODIFY** the `SimpleBattle` class
-- Modifying protected files will result in automatic academic integrity violation
+How to Run My Code
 
-### **AI Usage Policy**
-- ✅ **Allowed**: AI assistance for implementation, debugging, learning
-- 📝 **Required**: Document AI usage in code comments
-- 🎯 **Must be able to explain**: Every class and method during interview
+To run and verify the entire showcase, follow these steps:
 
-## 🏆 Grading
+Navigate to the Project Directory
 
-- **Inheritance Tests (20%)**: Proper 3-level inheritance chain
-- **Method Overriding (20%)**: Polymorphism and customized behaviors
-- **Special Abilities (15%)**: Character-specific methods and composition
-- **Code Quality (5%)**: Professional comments and documentation
-- **Interview (40%)**: Code explanation and live coding
+Open your terminal and move into the folder where your file is located:
+
+cd project-2-CharacterShowcase
+
+Run the Program
+
+Execute the Python file to generate all characters, display their stats, test polymorphism, show special abilities, demonstrate weapons, and run the battle simulation:
+
+python project2.py
+
+
+You will see:
+
+stats for all four classes
+
+their unique attack methods
+
+their special abilities
+
+weapon information
+
+a full battle: Warrior vs Mage
 
 ## 🎨 Bonus Creative Elements
 
