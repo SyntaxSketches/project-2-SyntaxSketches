@@ -3,7 +3,7 @@ COMP 163 - Project 2: Character Abilities Showcase
 Name: Kabijah Hill
 Date: 11/13
 
-AI Usage: [Document any AI assistance used]
+AI Usage: just for "actions" to work
 Example: AI helped with inheritance structure and method overriding concepts
 """
 
