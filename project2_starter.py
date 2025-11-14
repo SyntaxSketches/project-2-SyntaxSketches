@@ -103,15 +103,15 @@ class Player(Character):
     """
     
     def __init__(self, name, character_class, health, strength, magic):
-        """
-        Initialize a player character.
-        Should call the parent constructor and add player-specific attributes.
-        """
+        # Call Character constructor
+        super().__init__(name, health, strength, magic)
+
+        # Add player-specific attributes
         self.character_class = character_class
         self.level = 1
         self.experience = 0
-        pass
-        
+        self.weapon = None
+
     def display_stats(self):
         """
         Override the parent's display_stats to show additional player info.
@@ -258,7 +258,7 @@ if __name__ == "__main__":
     rogue = Rogue("Lyra")
     #
     # TODO: Display their stats
-     print("\n📊 Character Stats:")
+    print("\n📊 Character Stats:")
     warrior.display_stats()
     mage.display_stats()
     rogue.display_stats()
